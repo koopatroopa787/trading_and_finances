@@ -1,0 +1,15 @@
+include README.md
+include LICENSE
+include requirements.txt
+include USAGE.md
+include PYTHON311_COMPATIBILITY.md
+include .env.example
+
+recursive-include src *.py
+recursive-include dashboard *.py
+recursive-include examples *.py
+recursive-include tests *.py
+
+global-exclude __pycache__
+global-exclude *.py[co]
+global-exclude .DS_Store
