@@ -269,7 +269,7 @@ class ExecutionSimulator:
                 )
 
             # Check for partial fill
-            if self.partial_fills and filled_qty < order.quantity:
+            if self.partial_fills and 0 < filled_qty < order.quantity:
                 logger.warning(
                     f"Partial fill: {filled_qty}/{order.quantity} for {symbol}"
                 )
@@ -279,6 +279,10 @@ class ExecutionSimulator:
             # Simple execution at close price
             fill_price = row['close']
             filled_qty = order.quantity
+
+        if filled_qty <= 0:
+            strategy.on_order_reject(order, "No liquidity available for market order")
+            return
 
         # Calculate transaction costs
         volume = row.get('volume', 1000000)
