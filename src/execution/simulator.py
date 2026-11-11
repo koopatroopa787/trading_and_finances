@@ -401,7 +401,8 @@ class ExecutionSimulator:
     ) -> BacktestResult:
         """Generate backtest results."""
         # Convert to DataFrames
-        equity_df = pd.DataFrame(self.equity_history).set_index('timestamp')
+        equity_df = (pd.DataFrame(self.equity_history).set_index('timestamp')
+                     if self.equity_history else pd.DataFrame(columns=['equity']))
         positions_df = pd.DataFrame(self.position_history)
         trades_df = pd.DataFrame(self.trade_history)
         orders_df = pd.DataFrame(self.order_history)
